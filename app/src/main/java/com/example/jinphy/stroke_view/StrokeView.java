@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.jinphy.stroke_view.interfaces.Stroke;
 import com.example.jinphy.stroke_view.models.Shape;
+import com.example.jinphy.stroke_view.utils.ObjectU;
 
 import java.io.Serializable;
 
@@ -57,6 +58,7 @@ public class StrokeView extends View implements Serializable {
      * Created by jinphy, on 2018/9/4, at 20:35
      */
     public void setStroke(Stroke stroke) {
+        ObjectU.throwNull(stroke, "stroke cannot be null!");
         this.stroke = stroke;
     }
 
@@ -66,4 +68,9 @@ public class StrokeView extends View implements Serializable {
     public Stroke getStroke() {
         return stroke;
     }
+
+    public <T extends Stroke> T getShape(Class<T> tClass) {
+        return tClass.cast(stroke);
+    }
+
 }

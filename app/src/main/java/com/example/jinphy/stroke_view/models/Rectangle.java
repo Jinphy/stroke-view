@@ -99,24 +99,27 @@ public class Rectangle extends Shape implements Serializable{
         return strokeWidth;
     }
 
-    public void setStrokeWidth(float strokeWidth) {
+    public Rectangle setStrokeWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
+        return this;
     }
 
     public float getStrokeHeight() {
         return strokeHeight;
     }
 
-    public void setStrokeHeight(float strokeHeight) {
+    public Rectangle setStrokeHeight(float strokeHeight) {
         this.strokeHeight = strokeHeight;
+        return this;
     }
 
     public float getStrokeCornerRadius() {
         return strokeCornerRadius;
     }
 
-    public void setStrokeCornerRadius(float strokeCornerRadius) {
+    public Rectangle setStrokeCornerRadius(float strokeCornerRadius) {
         this.strokeCornerRadius = strokeCornerRadius;
+        return this;
     }
 
 

@@ -30,16 +30,18 @@ public class Oval extends Shape implements Serializable{
         return strokeWidth;
     }
 
-    public void setStrokeWidth(float strokeWidth) {
+    public Oval setStrokeWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
+        return this;
     }
 
     public float getStrokeHeight() {
         return strokeHeight;
     }
 
-    public void setStrokeHeight(float strokeHeight) {
+    public Oval setStrokeHeight(float strokeHeight) {
         this.strokeHeight = strokeHeight;
+        return this;
     }
 
     @Override

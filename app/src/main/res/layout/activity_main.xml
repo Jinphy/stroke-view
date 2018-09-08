@@ -9,28 +9,31 @@
 
     <TextView
         android:layout_centerInParent="true"
-        android:text="Hello, My baby!"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:text="欢迎来到自定义中空视图！"
         android:gravity="center"
         android:layout_width="250dp"
-        android:layout_height="250dp"/>
+        android:layout_height="80dp"/>
 
     <com.example.jinphy.stroke_view.StrokeView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:foregroundAlpha="255"
-        app:bitmapScaleType="centerCrop"
+        app:bitmapScaleType="fitXY"
         app:foreground="@drawable/image"
-        app:strokeGravity="center"
-        app:strokeWidth="100dp"
-        app:strokeHeight="100dp"
+        app:strokeGravity="bottom|center"
+        app:strokeWidth="250dp"
+        app:strokeHeight="80dp"
         app:strokeRadius="50dp"
         app:strokePath="0:-150 _ 150:150 _ 0:150 _ -150:50 _ 0:300"
         app:strokeCornerRadius="5dp"
         app:strokeOffsetX="0dp"
-        app:strokeOffsetY="0dp"
+        app:strokeOffsetY="-20dp"
         app:strokeType="rectangle"
-        app:strokeElevation="2dp"
-        app:strokeRotate="45"
+        app:strokeElevation="3dp"
+        app:strokeRotate="0"
+        app:strokeShadowColor="#4f333333"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

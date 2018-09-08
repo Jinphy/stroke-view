@@ -15,7 +15,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.FocusFinder;
 import android.view.View;
 
 
@@ -26,7 +25,8 @@ import com.example.jinphy.stroke_view.interfaces.ScaleType;
 import com.example.jinphy.stroke_view.interfaces.Stroke;
 import com.example.jinphy.stroke_view.interfaces.StrokeGravity;
 import com.example.jinphy.stroke_view.interfaces.StrokeType;
-import com.example.jinphy.stroke_view.utils.NumberUtils;
+import com.example.jinphy.stroke_view.utils.NumberU;
+import com.example.jinphy.stroke_view.utils.ObjectU;
 
 import java.io.Serializable;
 import java.lang.ref.SoftReference;
@@ -80,6 +80,10 @@ public abstract class Shape implements Stroke, Serializable {
      **/
     protected float strokeOffsetY;
     /**
+     * 中空的旋转角度
+     **/
+    protected float strokeRotate;
+    /**
      * 中空的阴影画笔
      **/
     protected Paint strokeShadowPaint;
@@ -91,10 +95,6 @@ public abstract class Shape implements Stroke, Serializable {
      * 前景透明度画笔
      **/
     protected Paint alphaPaint;
-    /**
-     * 中空的旋转角度
-     **/
-    protected float strokeRotate;
     /**
      * 中空的中心坐标
      **/
@@ -129,7 +129,7 @@ public abstract class Shape implements Stroke, Serializable {
                 array.getColor(R.styleable.StrokeView_strokeShadowColor, 0x7f333333);
         strokeElevation =
                 array.getDimension(R.styleable.StrokeView_strokeElevation, 2*density);
-        foregroundAlpha = NumberUtils.ensure(
+        foregroundAlpha = NumberU.ensure(
                 array.getInteger(R.styleable.StrokeView_foregroundAlpha, 255), 0, 255);
 
         bitmapScaleType = array.getInteger(R.styleable.StrokeView_bitmapScaleType, ScaleType.NORMAL);
@@ -363,48 +363,126 @@ public abstract class Shape implements Stroke, Serializable {
 
     //----------------------------------------------------------------------
 
-
+    //   Getter
 
     public int getStrokeShadowColor() {
         return strokeShadowColor;
-    }
-
-    public void setStrokeShadowColor(int strokeShadowColor) {
-        this.strokeShadowColor = strokeShadowColor;
     }
 
     public float getStrokeElevation() {
         return strokeElevation;
     }
 
-    public void setStrokeElevation(float strokeElevation) {
-        this.strokeElevation = strokeElevation;
-    }
-
     public int getForegroundAlpha() {
         return foregroundAlpha;
-    }
-
-    public void setForegroundAlpha(int foregroundAlpha) {
-        this.foregroundAlpha = foregroundAlpha;
     }
 
     public int getForegroundColor() {
         return foregroundColor;
     }
 
-    public void setForegroundColor(int foregroundColor) {
-        this.foregroundColor = foregroundColor;
-    }
-
     public Bitmap getForegroundBitmap() {
         return foregroundBitmap;
     }
 
-    public void setForegroundBitmap(Bitmap foregroundBitmap) {
-        this.foregroundBitmap = foregroundBitmap;
+    public int getBitmapScaleType() {
+        return bitmapScaleType;
     }
 
+    public int getStrokeGravity() {
+        return strokeGravity;
+    }
+
+    public float getStrokeOffsetX() {
+        return strokeOffsetX;
+    }
+
+    public float getStrokeOffsetY() {
+        return strokeOffsetY;
+    }
+
+    public float getStrokeRotate() {
+        return strokeRotate;
+    }
+
+    //-----------------------------------------------
+
+    // Setter
+
+
+    public <T extends Shape> T setStrokeShadowColor(int strokeShadowColor) {
+        this.strokeShadowColor = strokeShadowColor;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setStrokeElevation(float strokeElevation) {
+        if (strokeElevation <= 0) {
+            ObjectU.throwIllegal("strokeElevation must be big than 0");
+        }
+        this.strokeElevation = strokeElevation;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setForegroundAlpha(int foregroundAlpha) {
+        foregroundAlpha = NumberU.ensure(foregroundAlpha, 0, 255);
+        this.foregroundAlpha = foregroundAlpha;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setForegroundColor(int foregroundColor) {
+        this.foregroundColor = foregroundColor;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setForegroundBitmap(Bitmap foregroundBitmap) {
+        ObjectU.throwNull(foregroundBitmap, "foregroundBitmap cannot be null");
+        this.foregroundBitmap = foregroundBitmap;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setBitmapScaleType(int bitmapScaleType) {
+        if (!NumberU.in(bitmapScaleType, ScaleType.NORMAL, ScaleType.CENTER_CROP)) {
+            ObjectU.throwIllegal("value of bitmapScaleType must between 0 and 4");
+        }
+        this.bitmapScaleType = bitmapScaleType;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setStrokeGravity(int strokeGravity) {
+        if (!NumberU.anyEquals(strokeGravity,
+                StrokeGravity.CENTER,
+                StrokeGravity.LEFT,
+                StrokeGravity.RIGHT,
+                StrokeGravity.TOP,
+                StrokeGravity.BOTTOM)) {
+            ObjectU.throwIllegal("value of strokeGravity is illegal");
+        }
+        this.strokeGravity = strokeGravity;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setStrokeOffsetX(float strokeOffsetX) {
+        this.strokeOffsetX = strokeOffsetX;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setStrokeOffsetY(float strokeOffsetY) {
+        this.strokeOffsetY = strokeOffsetY;
+        return (T) this;
+    }
+
+    public <T extends Shape> T  setStrokeRotate(float strokeRotate) {
+        this.strokeRotate = strokeRotate;
+        return (T) this;
+    }
+
+    public void invalidate(){
+        View view;
+        if (this.view == null || (view = this.view.get()) == null) {
+            return;
+        }
+        view.invalidate();
+    }
 
     private static final String TAG = "Shape";
 }

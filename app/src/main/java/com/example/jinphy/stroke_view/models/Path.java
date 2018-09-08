@@ -10,11 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-
 /**
  * DESC: 自定义路径中空
  * Created by jinphy on 2018/9/2.
@@ -27,8 +22,9 @@ public class Path extends Shape implements Serializable{
         return points;
     }
 
-    public void setPoints(List<PointF> points) {
+    public Path setPoints(List<PointF> points) {
         this.points = points;
+        return this;
     }
 
     @Override
@@ -38,16 +34,12 @@ public class Path extends Shape implements Serializable{
             return;
         }
         points = new ArrayList<>();
-        Observable.just(pathStr)
-                .subscribeOn(Schedulers.io())
-                .map(x -> x.replaceAll(" +", ""))
-                .map(x -> x.split("_"))
-                .flatMap(Observable::fromArray)
-                .map(x -> x.split(":"))
-                .map(x -> new PointF(Float.valueOf(x[0]), Float.valueOf(x[1])))
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(points::add)
-                .subscribe();
+        pathStr = pathStr.replaceAll(" +", "");
+        String[] pointsStr = pathStr.split("_");
+        for (String pointStr : pointsStr) {
+            String[] p = pointStr.split(":");
+            points.add(new PointF(Float.valueOf(p[0]), Float.valueOf(p[1])));
+        }
     }
 
     private android.graphics.Path path;

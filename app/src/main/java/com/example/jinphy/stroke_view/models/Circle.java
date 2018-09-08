@@ -24,8 +24,9 @@ class Circle extends Shape implements Serializable {
         return strokeRadius;
     }
 
-    public void setStrokeRadius(float strokeRadius) {
+    public Circle setStrokeRadius(float strokeRadius) {
         this.strokeRadius = strokeRadius;
+        return this;
     }
 
 
