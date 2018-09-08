@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:text="Hello, My baby!"
+        android:gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="250dp"/>
+
+    <com.example.jinphy.stroke_view.StrokeView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:foregroundAlpha="255"
+        app:bitmapScaleType="centerCrop"
+        app:foreground="@drawable/image"
+        app:strokeGravity="center"
+        app:strokeWidth="100dp"
+        app:strokeHeight="100dp"
+        app:strokeRadius="50dp"
+        app:strokePath="0:-150 _ 150:150 _ 0:150 _ -150:50 _ 0:300"
+        app:strokeCornerRadius="5dp"
+        app:strokeOffsetX="0dp"
+        app:strokeOffsetY="0dp"
+        app:strokeType="rectangle"
+        app:strokeElevation="2dp"
+        app:strokeRotate="45"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

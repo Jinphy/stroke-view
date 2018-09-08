@@ -1,0 +1,50 @@
+<resources>
+    <declare-styleable name="StrokeView">
+        <!--中空阴影颜色-->
+        <attr name="strokeShadowColor" format="color"/>
+        <!--中空阴影高度-->
+        <attr name="strokeElevation" format="dimension"/>
+        <!--前景透明度-->
+        <attr name="foregroundAlpha" format="integer"/>
+        <!--前景颜色或图片-->
+        <attr name="foreground" format="color|reference"/>
+        <!--中空形状-->
+        <attr name="strokeType" format="enum">
+            <enum name="rectangle" value="0"/>
+            <enum name="circle" value="1"/>
+            <enum name="oval" value="2"/>
+            <enum name="path" value="3"/>
+        </attr>
+        <!--图片缩放方式-->
+        <attr name="bitmapScaleType" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="fitX" value="1"/>
+            <enum name="fitY" value="2"/>
+            <enum name="fitXY" value="3"/>
+            <enum name="centerCrop" value="4"/>
+        </attr>
+        <!--中空的对齐方式-->
+        <attr name="strokeGravity">
+            <flag name="center" value="1"/>
+            <flag name="left" value="2"/>
+            <flag name="right" value="4"/>
+            <flag name="top" value="8"/>
+            <flag name="bottom" value="16"/>
+        </attr>
+        <!--中空基于某个对齐方式下的X、Y轴偏移量-->
+        <attr name="strokeOffsetX" format="dimension"/>
+        <attr name="strokeOffsetY" format="dimension"/>
+        <!--中空形状为矩形、椭圆时的宽度、高度-->
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="strokeHeight" format="dimension"/>
+        <!--中空为矩形时的矩形圆角半径-->
+        <attr name="strokeCornerRadius" format="dimension"/>
+        <!--中空为圆形时的半径-->
+        <attr name="strokeRadius" format="dimension"/>
+        <!--中空为自定义路径时的路径，格式：x1:y1 _ x2:y2_ ... xn:yn   单位dp， 中间空格不影响-->
+        <attr name="strokePath" format="string"/>
+        <!--中空的旋转角度-->
+        <attr name="strokeRotate" format="float"/>
+    </declare-styleable>
+
+</resources>
